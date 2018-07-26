@@ -5,6 +5,7 @@
 	<fieldset>
 		<legend><?php echo __('Import analysis file'); ?></legend>
 <<<<<<< HEAD
+<<<<<<< HEAD
 		<?php
 			echo $this->Form->input('analysis_file', array(
 					'label' => '<b>Analysis file</b>',
@@ -19,6 +20,8 @@
 			// ));
 		?>
 =======
+=======
+>>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
 <?php
 	echo $this->Form->input('analysis_file', array(
 			'label' => '<b>Analysis file</b>',
@@ -32,12 +35,16 @@
 	// 		'label' => __('Publish imported events'),
 	// ));
 ?>
+<<<<<<< HEAD
+>>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
+=======
 >>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
 	</fieldset>
 <?php
 	echo $this->Form->button(__('Upload'), array('class' => 'btn btn-primary'));
 	echo $this->Form->end();
 ?>
+<<<<<<< HEAD
 <<<<<<< HEAD
 	<div id="afterUpload" style="display:none;">
 		<div id="object_templates" style="display:none;">
@@ -271,6 +278,8 @@ function unhighlight(){
 
 </script>
 =======
+=======
+>>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
 <div id="afterUpload" style="display:none;">
 	<button id="graspSelectedText" class="actions" style="display:none;">Add Selected Text</button>
 	<button id="clearSelectedText" class="actions" style="display:none;">Clear Selected Text</button>
@@ -352,5 +361,9 @@ $('#clearSelectedText').on('click',function(){
 		 -5px 5px #77aaff;
 	}
 
+<<<<<<< HEAD
+</style>
+>>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
+=======
 </style>
 >>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis

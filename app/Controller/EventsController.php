@@ -4967,6 +4967,7 @@ class EventsController extends AppController {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public function upload_analysis_file($eventId)
 	{
 		$data = array();
@@ -5070,6 +5071,8 @@ class EventsController extends AppController {
 =======
 =======
 >>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
+=======
+>>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
 	public function upload_analysis_file()
 	{
 		$this->set('file_uploaded',"0");
@@ -5096,6 +5099,9 @@ class EventsController extends AppController {
 			// }
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
+=======
 >>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
 =======
 >>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
