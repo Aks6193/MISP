@@ -3949,7 +3949,11 @@ class EventsController extends AppController {
 					),
 				    'Forensic analysis' => array(
 						'url' => '/events/upload_analysis_file/'.$id,
+<<<<<<< HEAD
 						'text' => 'Forensic analysis - Mactime',
+=======
+						'text' => 'Forensic analysis upload',
+>>>>>>> afadcfe... Add: object structure
 						'ajax' => false,
 				)
 			);
@@ -3980,11 +3984,6 @@ class EventsController extends AppController {
 				'STIX2' => array(
 						'url' => '/events/upload_stix/2',
 						'text' => 'STIX 2.0 format (lossy)',
-						'ajax' => false,
-				),
-				'Forensic analysis' => array(
-						'url' => '/events/upload_analysis_file',
-						'text' => 'Forensic analysis upload',
 						'ajax' => false,
 				)
 			);
@@ -4968,6 +4967,7 @@ class EventsController extends AppController {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public function upload_analysis_file($eventId)
 	{
 		$data = array();
@@ -5074,25 +5074,123 @@ class EventsController extends AppController {
 =======
 >>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
 	public function upload_analysis_file()
+=======
+	public function upload_analysis_file($eventId)
+>>>>>>> afadcfe... Add: object structure
 	{
+		$data = array();
+		$this->set('eventId', $eventId);
 		$this->set('file_uploaded',"0");
+		$this->set('file_name',""); 
+	
 		if (!$this->userRole['perm_modify']) {
 			throw new UnauthorizedException('You do not have permission to do that.');
 		}
-		if ($this->request->is('post'))
+
+		if ($this->request->is('post') && $this->request['data']['Event']['analysis_file']['name'])
 		{
-				$this->set('file_uploaded',"1");
-			// if ($this->_isRest()) {
-				$this->set('file_content',file_get_contents($this->request['data']['Event']['analysis_file']['tmp_name']));
-				
-			// }
+			$this->set('file_uploaded',"1");
+			$this->set('file_name', $this->request['data']['Event']['analysis_file']['name']);
+			$this->set('file_content',file_get_contents($this->request['data']['Event']['analysis_file']['tmp_name']));
+
+			//$result = $this->Event->upload_mactime($this->Auth->user(), );
+		}
+		else if ($this->request->is('post') && $this->request['data']['SelectedData']['mactime_data'])
+		{
+			$object = array();
+			$data = json_decode($this->request['data']['SelectedData']['mactime_data'],true);
+			foreach($data as $objectData) { 
+				$object['Object'] = array(
+					'name' => 'mactime-analysis',
+					'meta-category' => 'file',
+					'description' => 'Mactime template, used in forensic investigations esscribe the timeline of a file activity',
+					'template_version' => 1,
+					'template_uuid' => '9297982e-be62-4772-a665-c91f5a8d639',
+					'Attribute'=> [
+						"filepath"=> [
+							"description" => "Location of the file on the disc",
+							"ui-priority" => 0,
+							"misp-attribute" => "text",
+							"value" => $objectData['filepath']
+						],
+						"datetime"=> [
+							"description" => "Describes datetime of the activity conducted on the file",
+							"ui-priority" => 0,
+							"misp-attribute"  => "datetime",
+							"value" => $objectData['time_accessed']
+						],
+						  "file_size" => [
+							"description" => "Determines the file size in bytes",
+							"ui-priority" => 0,
+							"misp-attribute" => "number",
+							"value" => $objectData['file_size']
+						  ],
+						  "file_activity"=> [
+							"description" => "Determines the type of activity for the given time",
+							"ui-priority" => 0,
+							"misp-attribute" => "text",
+							"value" => $objectData['activity_type']
+						  ],
+						  "file_permissions"=> [
+							"description" => "Describes permissions of the file",
+							"ui-priority" => 0,
+							"misp-attribute" =>"text",
+							"value" => $objectData['permissions']
+						  ]
+					]
+				);
+				$object['Attribute'] = array(
+					'Attribute'=> [
+						"filepath"=> [
+							"description" => "Location of the file on the disc",
+							"ui-priority" => 0,
+							"misp-attribute" => "text",
+							"value" => $objectData['filepath']
+						],
+						"datetime"=> [
+							"description" => "Describes datetime of the activity conducted on the file",
+							"ui-priority" => 0,
+							"misp-attribute"  => "datetime",
+							"value" => $objectData['time_accessed']
+						],
+						"file_size" => [
+							"description" => "Determines the file size in bytes",
+							"ui-priority" => 0,
+							"misp-attribute" => "number",
+							"value" => $objectData['file_size']
+						],
+						"file_activity"=> [
+							"description" => "Determines the type of activity for the given time",
+							"ui-priority" => 0,
+							"misp-attribute" => "text",
+							"value" => $objectData['activity_type']
+						],
+						"file_permissions"=> [
+							"description" => "Describes permissions of the file",
+							"ui-priority" => 0,
+							"misp-attribute" =>"text",
+							"value" => $objectData['permissions']
+						]
+					]
+				);
+				$this->loadModel('MispObject');
+				$result = $this->MispObject->saveObject($object,$eventId,"","");
+				$this->redirect('/events/view/' . $eventId);
+			}
+			
+			  
+
 		}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
 =======
 >>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
 =======
 >>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
+=======
+		
+>>>>>>> afadcfe... Add: object structure
 	}
 }

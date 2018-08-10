@@ -101,11 +101,39 @@
 			<h3>Select text for further analysis</h3>
 =======
 	<div id="afterUpload" style="display:none;">
-		
+		<div id="object_templates" style="display:none;">
+			<div class="">
+				<?php
+				echo $this->Form->create('SelectedData', array('enctype' => 'application/Json'));
+				?>
+				<div style="display:none;">
+					<fieldset>
+						<?php
+							echo $this->Form->input('mactime_data', array(
+									'type' => 'text'
+							));
+							?>
+								<div class="input clear"></div>
+							<?php
+						?>
+					</fieldset>
+				</div>
+				
+				<?php
+					echo $this->Form->button(__('Create Objects'), array('class' => 'btn btn-primary'));
+					echo $this->Form->end();
+				?>
+			</div>
+		</div>
 		<div style="clear:both;"></div>
+		<input id="file_name" type="hidden" value="<?php if($file_uploaded == "1") { echo h($file_name); } ?>">
 		<div id="accordion1" style="">
+<<<<<<< HEAD
 			<h3>Select text for further analysis <button id="graspSelectedText" class="btn btn-primary" style="margin-left:5px;">Process Selected Entries</button></h3>
 >>>>>>> fbefdea... Modify: Changed data representation tables
+=======
+			<h3>Select text for further analysis</h3>
+>>>>>>> afadcfe... Add: object structure
 			<div id="textToSelect" class="raisedbox noselect">
 				<div id="fileContent" style="display:none;">
 					<p>	
@@ -334,18 +362,21 @@ function unhighlight(){
 						<th>Activity Type</th>
 						<th>Time Accessed</th>
 						<th>Permissions</th>
-						
 					</thead>
 					<tbody></tbody>
 				</table>
 			</div>
+			
 		</div>
 		<div style="clear:both;"></div>
 	</div>
+	
 </div>
 
 <?php
-	echo $this->element('side_menu', array('menuList' => 'event-collection', 'menuItem' => 'addSTIX'));
+echo $eventId;
+	$event['Event']['id'] = $eventId;
+	echo $this->element('side_menu', array('menuList' => 'event', 'menuItem' => 'addAttribute', 'event' => $event));
 ?>
 <style>
 	.selectedLines td, 
@@ -388,16 +419,38 @@ if(afterUpload == 1)
 		
 	}
 }
+$("input[type='checkbox']").change(function (e) {
 
-$('#graspSelectedText').on('click',function(){
+	var SelectedData = new Array();
+	var i = 0;
 	$('#individualLines').find('tr').each(function () {
         var row = $(this);
-			if (row.find('input[type="checkbox"]').is(':checked')) {
-			row.find("td:first").remove();
-        }
-		$(this).remove();
+		if (row.find('input[type="checkbox"]').is(':checked')) {
+
+			SelectedData[i]={
+				"filepath" : $(row).find('td:eq(1)').text(),
+				"file_size" :$(row).find('td:eq(2)').text(),
+				"activity_type" : $(row).find('td:eq(3)').text(),
+				"time_accessed" : $(row).find('td:eq(4)').text(),
+				"permissions" : $(row).find('td:eq(5)').text(),
+				"file_name" : $("#file_name").val()
+			}
+			i++;
+		}
+		
     });
-})
+	if(i > 0)
+	{
+		$('#object_templates').show();
+		SelectedData =JSON.stringify(SelectedData);
+		$('#SelectedDataMactimeData').val(SelectedData);
+	}
+	else
+		$('#object_templates').hide();
+	
+
+	
+});
 
 
 function processString(text)
