@@ -374,7 +374,6 @@ function unhighlight(){
 </div>
 
 <?php
-echo $eventId;
 	$event['Event']['id'] = $eventId;
 	echo $this->element('side_menu', array('menuList' => 'event', 'menuItem' => 'addAttribute', 'event' => $event));
 ?>
