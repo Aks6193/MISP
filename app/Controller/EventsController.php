@@ -3949,15 +3949,9 @@ class EventsController extends AppController {
 					),
 				    'Forensic analysis' => array(
 						'url' => '/events/upload_analysis_file/'.$id,
-<<<<<<< HEAD
-<<<<<<< HEAD
 						'text' => 'Forensic analysis - Mactime',
-=======
 						'text' => 'Forensic analysis upload',
->>>>>>> afadcfe... Add: object structure
-=======
 						'text' => 'Forensic analysis - Mactime',
->>>>>>> f45db84... Fixed: attribute issue
 						'ajax' => false,
 				)
 			);
@@ -4968,10 +4962,7 @@ class EventsController extends AppController {
 		}
 		return $this->RestResponse->viewData($response, $this->response->type());
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	public function upload_analysis_file($eventId)
 	{
 		$data = array();
@@ -5071,16 +5062,8 @@ class EventsController extends AppController {
 			}
 			$this->redirect('/events/view/' . $eventId);	  
 		}
-		
-=======
-=======
->>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
-=======
->>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
-	public function upload_analysis_file()
-=======
+
 	public function upload_analysis_file($eventId)
->>>>>>> afadcfe... Add: object structure
 	{
 		$data = array();
 		$this->set('eventId', $eventId);
@@ -5110,11 +5093,7 @@ class EventsController extends AppController {
 				$object['Object'] = array(
 					'name' => 'mactime-timeline-analysis',
 					'meta-category' => 'file',
-<<<<<<< HEAD
-					'description' => 'Mactime template, used in forensic investigations describe the timeline of a file activity',
-=======
 					'description' => 'Mactime template, used in forensic investigations to describe the timeline of a file activity',
->>>>>>> 52026c4... fix: error in mactime object
 					'template_version' => 1,
 					'template_uuid' => '9297982e-be62-4772-a665-c91f5a8d639'
 				);
@@ -5183,16 +5162,5 @@ class EventsController extends AppController {
 			}
 			$this->redirect('/events/view/' . $eventId);	  
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
-=======
->>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
-=======
->>>>>>> 08b81f6... added first stage of digital forensics - timeline analysis
-=======
-		
->>>>>>> afadcfe... Add: object structure
 	}
 }
