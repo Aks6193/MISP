@@ -4990,11 +4990,7 @@ class EventsController extends AppController {
 				$object['Object'] = array(
 					'name' => 'mactime-timeline-analysis',
 					'meta-category' => 'file',
-<<<<<<< HEAD
 					'description' => 'Mactime template, used in forensic investigations to describe the timeline of a file activity',
-=======
-					'description' => 'Mactime template, used in forensic investigations describe the timeline of a file activity',
->>>>>>> 87068382b0772a49f7d2d17048b83fc6a93ed0b6
 					'template_version' => 1,
 					'template_uuid' => '9297982e-be62-4772-a665-c91f5a8d639'
 				);
