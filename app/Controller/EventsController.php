@@ -4985,8 +4985,10 @@ class EventsController extends AppController {
 			$fileData = $this->request['data']['SelectedData']['mactime_file_content'];
 			$object = array();
 			$data = json_decode($this->request['data']['SelectedData']['mactime_data'],true);
+			$firstObject = 1;
 			foreach($data as $objectData) 
 			{ 
+				 
 				$object['Object'] = array(
 					'name' => 'mactime-timeline-analysis',
 					'meta-category' => 'file',
@@ -5055,7 +5057,35 @@ class EventsController extends AppController {
 					
 					);
 				$this->loadModel('MispObject');
-				$this->MispObject->saveObject($object,$eventId,"","");
+				$ObjectResult = $this->MispObject->saveObject($object,$eventId,"","");
+				$temp = $this->MispObject->ObjectReference->Object->find('first', array(
+					'recursive' => -1,
+					'fields' => array('Object.uuid','Object.id'),
+					'conditions' => array('Object.id' =>$ObjectResult)
+				));
+				
+				if($firstObject == 0)
+				{	
+					$objectRef['referenced_id'] = $PreviousObjRef['Object']['id'];
+					$objectRef['referenced_uuid'] = $PreviousObjRef['Object']['uuid'];
+					$objectRef['object_id'] = $ObjectResult;
+					$objectRef['relationship_type'] = "preceding-by";
+					$this->loadModel('MispObject');
+					$result = $this->MispObject->ObjectReference->captureReference($objectRef, $eventId,$user,false);			
+					$objectRef['referenced_id'] = $temp['Object']['uuid'];
+					$objectRef['referenced_uuid'] = $temp['Object']['uuid'];
+					$objectRef['object_id'] = $PreviousObjRef['Object']['id'];
+					$objectRef['relationship_type'] = "followed-by";
+					$this->loadModel('MispObject');
+					$result = $this->MispObject->ObjectReference->captureReference($objectRef, $eventId,$user,false);
+					$PreviousObjRef = $temp;
+				}
+				else
+				{
+					$PreviousObjRef = $temp;
+					$firstObject = 0;
+				}
+				
 			}
 			$this->redirect('/events/view/' . $eventId);	  
 		}
