@@ -5072,7 +5072,7 @@ class EventsController extends AppController {
 					$objectRef['relationship_type'] = "preceding-by";
 					$this->loadModel('MispObject');
 					$result = $this->MispObject->ObjectReference->captureReference($objectRef, $eventId,$user,false);			
-					$objectRef['referenced_id'] = $temp['Object']['uuid'];
+					$objectRef['referenced_id'] = $temp['Object']['id'];
 					$objectRef['referenced_uuid'] = $temp['Object']['uuid'];
 					$objectRef['object_id'] = $PreviousObjRef['Object']['id'];
 					$objectRef['relationship_type'] = "followed-by";
